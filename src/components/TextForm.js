@@ -7,7 +7,7 @@ export default function TextForm(props) {
     setText(text.toUpperCase());
     props.showAlert("Converted to UpperCase", "success");
   };
-
+  
   const lcHandler = () => {
     setText(text.toLowerCase());
     props.showAlert("Converted to LowerCase", "success");
@@ -31,6 +31,29 @@ export default function TextForm(props) {
     setText(text.replace(/\s+/g, " ").trim());
     props.showAlert("Extra spaces removed", "success");
   };
+
+
+
+// text to speech
+function convertTextToVoice() {
+  if (!text.trim()) {
+    alert("Please enter some text.");
+    return;
+  }
+
+  // Create a new SpeechSynthesisUtterance object
+  const utterance = new SpeechSynthesisUtterance(text);
+
+  // Optional: Set voice properties
+  utterance.rate = 1; // Speed of speech (0.1 to 10, default 1)
+  utterance.pitch = 1; // Pitch (0 to 2, default 1)
+  utterance.volume = 1; // Volume (0 to 1, default 1)
+
+  // Speak the text
+  window.speechSynthesis.speak(utterance);
+}
+// text to speech
+
 
   const capitalizeWords = () => {
     setText(
@@ -80,6 +103,9 @@ export default function TextForm(props) {
           </button>
           <button className="btn btn-secondary" onClick={capitalizeWords}>
             Capitalize Words
+          </button>
+          <button className="btn btn-info ms-2" onClick={convertTextToVoice}>
+            Speak
           </button>
         </div>
       </div>
